@@ -177,6 +177,19 @@ class Collection implements Countable, IteratorAggregate, ArrayAccess, JsonSeria
     }
 
     /**
+     * Returns new collection with items that are sorted on the given callback
+     *
+     * @param callable|null $callback
+     * @return static
+     */
+    public function sort(callable $callback = null)
+    {
+        $items = $this->items;
+        $callback ? uasort($items, $callback) : asort($items);
+        return new static($items);
+    }
+
+    /**
      * @inheritdoc
      */
     public function getIterator()
